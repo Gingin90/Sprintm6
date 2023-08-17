@@ -50,8 +50,8 @@ class AdapterCelu() : RecyclerView.Adapter<AdapterCelu.ItemCeluViewHolder>() {
 
         fun bind(celu: CeluEntity) {
 
-            celusVistas.txtRaza.text = celu.celu
-            celusVistas.cardViewRazas.setOnClickListener {
+            celusVistas.txt.text = celu.celu
+            celusVistas.cardView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putString("id", celu.celu)
 
@@ -65,8 +65,7 @@ class AdapterCelu() : RecyclerView.Adapter<AdapterCelu.ItemCeluViewHolder>() {
 
     }
 
-    class ItemCeluViewHolder {
-        fun bind(celu: CeluEntity) {
+
 
 
         }
