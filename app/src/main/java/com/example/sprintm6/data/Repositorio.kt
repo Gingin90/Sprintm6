@@ -1,59 +1,53 @@
-package com.example.Sprintm6.data
+package com.example.sprintm6.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.example.Sprintm6.data.local.CelDetalleEntity
-import com.example.Sprintm6.data.local.CeluDao
-import com.example.Sprintm6.data.local.CeluEntity
-import com.example.Sprintm6.data.remote.CeluAPI
-import com.example.ind8m6.data.toEntity
 
+import com.example.sprintm6.data.remote.CellApi
+import com.example.sprintm6.data.local.TelefonoDao
+import com.example.sprintm6.data.local.TelefonoDetalleEntity
+import com.example.sprintm6.data.local.TelefonoEntity
 
-class Repositorio(private val celuAPI: CeluAPI, private val celuDao: CeluDao) {
+class Repositorio(private val cellApi: CellApi, private val telefonoDao: TelefonoDao) {
 
-    fun obtenerCeluEntetity(): LiveData<List<CeluEntity>> = celuDao.getCelu()
+    fun obtenerCelulares(): LiveData<List<TelefonoEntity>> = telefonoDao.getTelefonos()
 
-    fun obtenerDetalleEntity(id: String): LiveData<List<CelDetalleEntity>> =
-        celuDao.getCeluDetalle(id)
+    fun obtenerDetalleCelular(id: Int): LiveData<TelefonoDetalleEntity> = telefonoDao.getCelularDetalle(id)
 
-    suspend fun getCelu() {
-
-        val response = celuAPI.getDataCell()
-        if (response.isSuccessful) {
-
+    suspend fun cargarTelefonos(){
+        try {
+            val response = cellApi.getDataCell()
+            if (response.isSuccessful) {
                 val resp = response.body()
                 resp?.let { celu ->
-                    val CeluEntity= celu.map{it.transformar() }
-                    CeluDao.insert(CeluEntity)
-                try {
-
-
-                } catch (exception: Exception) {
-                    Log.e("catch", "")
+                    val telefonoEntity = celu.map {it.transformar() }
+                    telefonoDao.insertTelefono(telefonoEntity)
                 }
-
+            } else {
+                Log.e("repositorio", response.errorBody().toString())
             }
-        } else {
-            Log.e("repositorio", response.errorBody().toString())
-        }
-
-    }
-
-    suspend fun getDetalleCel(id: Long) {
-
-        val response = celuAPI.getDetalleCell(id)
-        if (response.isSuccessful) {
-            response.body()!!.message.forEach {url->
-                val celDetalleEntity = url.toEntity()
-                celuDao.insertDetalleCelu(celDetalleEntity )
-            }
-
-        } else {
-            Log.e("repositorio", response.errorBody().toString())
+        }catch (exception: Exception){
+            Log.e("catch","")
         }
     }
+
+
+    suspend fun cargarDetalleTelefono(id : Int){
+        try {
+            val response = cellApi.getDetalleCell(id)
+            if (response.isSuccessful) {
+                val resp = response.body()
+                resp?.let { celu ->
+                    val telefonoDetalleEntity = celu.toDetalleEntity()
+                    telefonoDao.insertDetalleTelefono(telefonoDetalleEntity)
+                }
+            } else {
+                Log.e("repositorio", response.errorBody().toString())
+            }
+        }catch (exception: Exception){
+            Log.e("catch","")
+        }
+    }
+
+
 }
-
-
-
-

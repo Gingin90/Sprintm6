@@ -1,8 +1,10 @@
-package com.example.ind8m6.data
+package com.example.sprintm6.data
 
-import com.example.ind8m6.data.local.CelDetalleEntity
-import com.example.ind8m6.data.local.CeluEntity
+import com.example.sprintm6.data.local.TelefonoDetalleEntity
+import com.example.sprintm6.data.local.TelefonoEntity
+import com.example.sprintm6.data.remote.Cell
+import com.example.sprintm6.data.remote.CellDetalle
 
-fun String.toEntity(id:String): CelDetalleEntity = CelDetalleEntity(id,this)
+fun Cell.transformar(): TelefonoEntity = TelefonoEntity(this.id,this.name,this.price,this.image)
 
-fun String.toRazaEntity(): CeluEntity = CeluEntity(this)
+fun CellDetalle.toDetalleEntity(): TelefonoDetalleEntity = TelefonoDetalleEntity(this.id,this.name,this.price,this.image,this.description,this.lastPrice,this.credit)
