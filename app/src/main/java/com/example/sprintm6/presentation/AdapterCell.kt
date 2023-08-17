@@ -6,16 +6,18 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.ej5m6.R
+import com.example.ej5m6.databinding.ItemCeluBinding
 import com.example.sprintm6.data.local.TelefonoEntity
 
 
 class AdapterCell: RecyclerView.Adapter<AdapterCell.ItemTelefonoViewHolder>() {
 
-    lateinit var binding: ItemCellBinding
+    lateinit var binding: ItemCeluBinding
     private val listItemCelulares = mutableListOf<TelefonoEntity>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemTelefonoViewHolder {
-        binding = ItemCellBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        binding = ItemCeluBinding.inflate(LayoutInflater.from(parent.context),parent, false)
 
         return ItemTelefonoViewHolder(binding)
     }
@@ -35,7 +37,7 @@ class AdapterCell: RecyclerView.Adapter<AdapterCell.ItemTelefonoViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class ItemTelefonoViewHolder(val celu : ItemCellBinding): RecyclerView.ViewHolder(celu.root) {
+    class ItemTelefonoViewHolder(val celu : ItemCeluBinding): RecyclerView.ViewHolder(celu.root) {
 
         fun bind(item_celu: TelefonoEntity){
             val bundle = Bundle()
@@ -44,7 +46,7 @@ class AdapterCell: RecyclerView.Adapter<AdapterCell.ItemTelefonoViewHolder>() {
             celu.imgCell.load(item_celu.image)
             celu.cvItem.setOnClickListener{
                 bundle.putInt("id", item_celu.id)
-                Navigation.findNavController(celu.root).navigate(R.id.action_fragment_ListadoCelulares_to_fragment_Detalle_Telefono, bundle)
+                Navigation.findNavController(celu.root).navigate(R.id.action_fragment_ListadoCelulares_to_fragment_detalle_telefono, bundle)
             }
         }
 
