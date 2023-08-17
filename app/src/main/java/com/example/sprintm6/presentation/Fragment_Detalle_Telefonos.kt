@@ -1,29 +1,11 @@
 package com.example.sprintm6.presentation
 
-import android.content.Intent
-import android.net.Uri
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
-import coil.load
-import com.example.Sprintm6.presentation.CelViewModel
-import com.example.ej5m6.R
-import com.example.ej5m6.databinding.FragmentDetalleBinding
+class Fragment_Detalle_Telefonos : Fragment() {
 
 
-private const val ARG_PARAM1 = "id"
-
-class FragmentDetalle : Fragment() {
-
-    lateinit var binding: FragmentDetalleBinding
-    val celViewModel: CelViewModel by activityViewModels()
+    private val cellVM: CellViewModel by activityViewModels()
+    lateinit var binding: FragmentDetalleTelefonoBinding
     private var param1: Int = 0
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,16 +18,15 @@ class FragmentDetalle : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDetalleBinding.inflate(layoutInflater, container, false)
-
-      celViewModel.detalleLiveData(param1).observe(viewLifecycleOwner){
+        binding = FragmentDetalleTelefonoBinding.inflate(layoutInflater,container,false)
+        cellVM.getDetalleTelefonoVM(param1)
         //cellVM.getDetalleTelefonoVM(param1).invokeOnCompletion {}
-
+        cellVM.detalleLiveData(param1).observe(viewLifecycleOwner){
             if(it != null) {
                 binding.txtNombreDetalle.text = it.name
                 binding.txtPrecioDetalle.text = "Ultimo precio: $" +  it.price.toString()
                 binding.txtUltimoPrecioDetalle.text = "Precio Actual: $" +  it.lastPrice.toString()
-                binding.txtDescripcionDetalle.text= it.description
+                binding.txtDescripcionDetalle.text = it.description
                 if (!it.credit){
                     binding.txtCredit.text = "SOLO EFECTIVO"
                 }else{
@@ -65,7 +46,7 @@ class FragmentDetalle : Fragment() {
                 binding.floatingButton.setOnClickListener{
 
                     if(binding.cardViewEmail.visibility == View.GONE){
-                        binding.cardViewEmail.visibility= View.VISIBLE
+                        binding.cardViewEmail.visibility = View.VISIBLE
                     }else{
                         binding.cardViewEmail.visibility = View.GONE
                     }
@@ -91,7 +72,7 @@ class FragmentDetalle : Fragment() {
 
             startActivity(Intent.createChooser(intentEmail, "Consulta producto"))
 
-            findNavController().navigate(R.id.action_fragmentDetalle_to_fragmentListado)
+            findNavController().navigate(R.id.action_fragment_Detalle_Telefono_to_fragment_ListadoCelulares)
 
         }
 
@@ -101,6 +82,6 @@ class FragmentDetalle : Fragment() {
 
         return binding.root
     }
+
+
 }
-
-

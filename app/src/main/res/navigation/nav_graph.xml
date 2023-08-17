@@ -3,23 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentDetalle">
-
+    app:startDestination="@id/fragment_ListadoCelulares">
     <fragment
-        android:id="@+id/fragmentListado"
-        android:name="com.example.sprintm6.data.presentation.FragmentListado"
-        android:label="fragment_listado"
-        tools:layout="@layout/fragment_listado" >
-        <action
-            android:id="@+id/action_fragmentListado_to_fragmentDetalle"
-            app:destination="@id/fragmentDetalle" />
-    </fragment>
-    <fragment
-        android:id="@+id/fragmentDetalle"
-        android:name="com.example.sprintm6.presentation.FragmentDetalle"
-        android:label="FragmentDetalle" >
-        <action
-            android:id="@+id/action_fragmentDetalle_to_fragmentListado"
-            app:destination="@id/fragmentListado" />
-    </fragment>
+        android:id="@+id/fragment_ListadoCelulares"
+        android:name="com.example.sprintm6.presentation.Fragment_ListadoCelulares"
+        android:label="Fragment_ListadoCelulares" />
 </navigation>
