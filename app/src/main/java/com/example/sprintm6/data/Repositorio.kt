@@ -2,10 +2,10 @@ package com.example.Sprintm6.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import com.example.Sprintm6.data.local.CelDetalleEntity
 import com.example.Sprintm6.data.local.CeluDao
 import com.example.Sprintm6.data.local.CeluEntity
 import com.example.Sprintm6.data.remote.CeluAPI
-import com.example.ind8m6.data.local.CelDetalleEntity
 import com.example.ind8m6.data.toEntity
 
 
@@ -18,13 +18,13 @@ class Repositorio(private val celuAPI: CeluAPI, private val celuDao: CeluDao) {
 
     suspend fun getCelu() {
 
-        val response = celuAPI.getData()
+        val response = celuAPI.getDataCell()
         if (response.isSuccessful) {
-            val message = response.body()!!.message
-            val keys = message.keys
-            keys.forEach {celu->
-                val celuEntity = celu.toCeluEntity()
-                celuDao.insertCelu(celuEntity)
+
+                val resp = response.body()
+                resp?.let { celu ->
+                    val CeluEntity= celu.map{it.transformar() }
+                    CeluDao.insert(CeluEntity)
                 try {
 
 
@@ -39,13 +39,13 @@ class Repositorio(private val celuAPI: CeluAPI, private val celuDao: CeluDao) {
 
     }
 
-    suspend fun getDetallePerro(id: String) {
+    suspend fun getDetalleCel(id: Long) {
 
-        val response = celuAPI.getDetalleCel(id)
+        val response = celuAPI.getDetalleCell(id)
         if (response.isSuccessful) {
             response.body()!!.message.forEach {url->
-                val CelDetalleEntity = url.toEntity(id)
-                celuDao.insertDetalleCelu(CelDetalleEntity )
+                val celDetalleEntity = url.toEntity()
+                celuDao.insertDetalleCelu(celDetalleEntity )
             }
 
         } else {

@@ -1,64 +1,74 @@
-package com.example.ind8m6.presentation
+package com.example.Sprintm6.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.Sprintm6.data.local.CeluEntity
 import com.example.ej5m6.R
-import com.example.ej5m6.databinding.ItemRazasBinding
-import com.example.ind8m6.data.local.RazaEntity
+import com.example.ej5m6.databinding.ItemCeluBinding
 
-class AdapterCelu : RecyclerView.Adapter<AdapterCelu.ItemRazasViewHolder>() {
+class AdapterCelu() : RecyclerView.Adapter<AdapterCelu.ItemCeluViewHolder>() {
 
-    lateinit var binding: ItemRazasBinding
-  val listItemRazas = mutableListOf<RazaEntity>()
+    lateinit var binding: ItemCeluBinding
+  val listItemCelu = mutableListOf<CeluEntity>()
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): AdapterCelu.ItemRazasViewHolder {
-        binding = ItemRazasBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    ): AdapterCelu.ItemCeluViewHolder {
+        binding = ItemCeluBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return ItemRazasViewHolder(binding)
+        return ItemCeluViewHolder(binding)
 
     }
 
-    override fun onBindViewHolder(holder: AdapterCelu.ItemRazasViewHolder, position: Int) {
-        val raza = listItemRazas[position]
-        holder.bind(raza)
+    override fun onBindViewHolder(holder: ItemCeluViewHolder, position: Int) {
+        val celu= listItemCelu[position]
+        holder.bind(celu)
     }
+
+
 
     override fun getItemCount(): Int {
-        return listItemRazas.size
+        return listItemCelu.size
     }
 
-    fun setData(razas: List<RazaEntity>) {
-        this.listItemRazas.clear()
-        this.listItemRazas.addAll(razas)
+    fun setData(celus: List<CeluEntity>) {
+        this.listItemCelu.clear()
+        this.listItemCelu.addAll(celus)
         notifyDataSetChanged()
 
 
     }
 
 
-    class ItemRazasViewHolder(val razasVistas: ItemRazasBinding) :
-        RecyclerView.ViewHolder(razasVistas.root) {
+    class ItemCeluViewHolder(val celusVistas: ItemCeluBinding) :
+        RecyclerView.ViewHolder(celusVistas.root) {
 
-        fun bind(raza: RazaEntity) {
+        fun bind(celu: CeluEntity) {
 
-            razasVistas.txtRaza.text = raza.raza
-            razasVistas.cardViewRazas.setOnClickListener {
+            celusVistas.txtRaza.text = celu.celu
+            celusVistas.cardViewRazas.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putString("id", raza.raza)
+                bundle.putString("id", celu.celu)
 
-                Navigation.findNavController(razasVistas.root)
-                    .navigate(R.id.action_listadoRazas_to_fragmentDetalle, bundle)
+                Navigation.findNavController(celusVistas.root)
+                    .navigate(R.id.action_fragmentListado_to_fragmentDetalle,bundle)
             }
 
 
         }
 
 
+    }
+
+    class ItemCeluViewHolder {
+        fun bind(celu: CeluEntity) {
+
+
+        }
     }
 }
