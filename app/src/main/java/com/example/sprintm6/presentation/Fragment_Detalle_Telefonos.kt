@@ -1,9 +1,25 @@
 package com.example.sprintm6.presentation
 
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import coil.load
+import com.example.ej5m6.R
+import com.example.ej5m6.databinding.FragmentDetalleTelefonoBinding
+
+
+private const val ARG_PARAM1 = "id"
+
 class Fragment_Detalle_Telefonos : Fragment() {
 
 
-    private val cellVM: CellViewModel by activityViewModels()
+    private val celVM: CelViewModel by activityViewModels()
     lateinit var binding: FragmentDetalleTelefonoBinding
     private var param1: Int = 0
 
@@ -19,9 +35,9 @@ class Fragment_Detalle_Telefonos : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetalleTelefonoBinding.inflate(layoutInflater,container,false)
-        cellVM.getDetalleTelefonoVM(param1)
+        celVM.getDetalleTelefonoVM(param1)
         //cellVM.getDetalleTelefonoVM(param1).invokeOnCompletion {}
-        cellVM.detalleLiveData(param1).observe(viewLifecycleOwner){
+        celVM.detalleLiveData(param1).observe(viewLifecycleOwner){
             if(it != null) {
                 binding.txtNombreDetalle.text = it.name
                 binding.txtPrecioDetalle.text = "Ultimo precio: $" +  it.price.toString()
@@ -57,7 +73,6 @@ class Fragment_Detalle_Telefonos : Fragment() {
         }
 
         //"buttonEmailMe" es el id del boton
-
         binding.buttonEmailMe!!.setOnClickListener {
             //mail cliente
             val destinatario = "info@novaera.cl"
@@ -65,6 +80,7 @@ class Fragment_Detalle_Telefonos : Fragment() {
             intentEmail.type = "plain/text"
             //Donde llegan
             intentEmail.putExtra(Intent.EXTRA_EMAIL,arrayOf(destinatario))
+
             //Titulo Mail
             intentEmail.putExtra(Intent.EXTRA_SUBJECT, binding.editTextEmailAsunto.text.toString())
             //Body Mail
