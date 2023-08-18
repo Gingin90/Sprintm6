@@ -92,10 +92,6 @@ class Fragment_Detalle_Telefonos : Fragment() {
 
         }
 
-
-
-
-
         return binding.root
     }
 
