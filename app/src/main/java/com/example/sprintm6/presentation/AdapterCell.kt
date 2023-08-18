@@ -46,7 +46,7 @@ class AdapterCell: RecyclerView.Adapter<AdapterCell.ItemTelefonoViewHolder>() {
             celu.imgCell.load(item_celu.image)
             celu.cvItem.setOnClickListener{
                 bundle.putInt("id", item_celu.id)
-                Navigation.findNavController(celu.root).navigate(R.id.action_fragment_ListadoCelulares_to_fragment_detalle_telefono, bundle)
+                Navigation.findNavController(celu.root).navigate(R.id.action_fragment_ListadoCelulares_to_fragment_Detalle_Telefono,bundle)
             }
         }
 

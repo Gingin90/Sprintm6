@@ -2,7 +2,6 @@ package com.example.sprintm6.presentation
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sprintm6.data.Repositorio
 import com.example.sprintm6.data.local.TelefonoDataBase

@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.example.anonymous_store_sprint6.R
-import com.example.anonymous_store_sprint6.databinding.FragmentListadoCelularesBinding
+import com.example.ej5m6.databinding.FragmentListadoCelularesBinding
 
 class Fragment_ListadoCelulares : Fragment() {
 
     lateinit var binding: FragmentListadoCelularesBinding
-    private val cellVM: CellViewModel by activityViewModels()
+    private val cellVM: CelViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,10 +2,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
+    android:id="@+id/nav_cell"
     app:startDestination="@id/fragment_ListadoCelulares">
+
     <fragment
         android:id="@+id/fragment_ListadoCelulares"
         android:name="com.example.sprintm6.presentation.Fragment_ListadoCelulares"
-        android:label="Fragment_ListadoCelulares" />
+        android:label="fragment_listado_celulares"
+        tools:layout="@layout/fragment_listado_celulares" >
+        <action
+            android:id="@+id/action_fragment_ListadoCelulares_to_fragment_Detalle_Telefono"
+            app:destination="@id/fragment_Detalle_Telefono" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_Detalle_Telefono"
+        android:name="com.example.sprintm6.presentation.Fragment_Detalle_Telefonos"
+        android:label="fragment_detalle_telefono"
+        tools:layout="@layout/fragment_detalle_telefono" >
+        <action
+            android:id="@+id/action_fragment_Detalle_Telefono_to_fragment_ListadoCelulares"
+            app:destination="@id/fragment_ListadoCelulares" />
+    </fragment>
 </navigation>
